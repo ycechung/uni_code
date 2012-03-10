@@ -1,0 +1,61 @@
+<!--
+STEP 13: use <c:redirect> tag to redirect the controller - ties index.jsp into the app framework
+-->
+
+<!-- 
+STEP 1: springapp dir => src (hold all java source files)
+                       => war (used to deploy the app i.e. jsp, config)
+                                   => WEB-INF
+
+STEP 2:
+springapp/war/index.jsp
+springapp/war/WEB-INF/web.xml
+
+-->
+
+<!--
+STEP 3: Deploying the application to Tomcat
+	
+	springapp/build.xml
+	=============================================================
+	= task for building and deploying the app
+	= task for controlling the app under tomcat
+	= contains all targets we need to make deployment easier
+	
+	springapp/build.properties
+	=============================================================
+	= customize to match the server installation
+	
+STEP 4: Test
+STEP 5: Download Spring Distribution and unzip to home dir
+
+	www.springframework.org/download.html.
+=================================== FINISH SETUP ENVIRONMENT ===================================
+
+The root element of an Ant build file is the project element, it has three attributes
+= name: The name of the project, it can be any combination of alphanumeric characters that constitute valid XML
+= default: -> used when no target is specified
+= basedir -> The base directory from which any relative directories used within the Ant build file are referenced from. If this is omitted the parent directory of the build file will be used. 
+
+ -->
+ 
+ 
+ 
+ 
+ 
+ 
+<!--
+STEP 14: Improve the view and the controller
+  add current date and time as output retrieved from the model, passed to the view (using JSTL - <c:out> tag)
+-->
+ 
+// The Product class is implemented as a JavaBean – it has the default constructor 
+//  (automatically provided if we don't specify any constructors) and getters and setters for the two instance variables description and price.
+//  I also make it Serializable, not necessary for our application, but could come in handy later on if we have to pass this class between different application layers.
+
+
+		<!--
+		Step 17:
+		Using the JSTL <c: forEach> tag, add a section that displays product information
+		 replaced the title, heading and greeting text with JSTL <fmt:message> pulls the text to display from a provided 'message' source
+		-->

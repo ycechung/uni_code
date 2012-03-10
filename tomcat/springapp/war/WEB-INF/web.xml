@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5"> 
+	
+	<!-- PLACE YOUR PATH HERE -->
+	<servlet>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>com.stardeveloper.servlets.TestServlet</servlet-class>
+	</servlet>
+	
+	
+	
+	<!-- PLACE YOUR MAPPING HERE -->
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern> /TestServlet </url-pattern>
+		<!-- <url-pattern>/TestServlet?firstname=Change&lastname=Me</url-pattern> -->
+	</servlet-mapping>
+	
+	
+	
+	<!-- Other -->
+	<welcome-file-list>
+		<welcome-file>
+			<!--/pages/form.html-->
+		</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!--  Controller for the initial "Hello" page -->
+	<bean id="springappController" class="web.SpringappController">
+		<property name="productManager">
+			<ref bean="prodMan"/>
+		</property>
+	</bean>
+
+	<!-- Validator and Form Controller for the "Price Increase" page -->
+	<bean id="priceIncreaseValidator" class="bus.PriceIncreaseValidator"/>
+	<bean id="priceIncreaseForm" class="web.PriceIncreaseFormController">
+		<property name="sessionForm"><value>true</value></property>
+		<property name="commandName"><value>priceIncrease</value></property>
+		<property name="commandClass"><value>bus.PriceIncrease</value></property>
+		<property name="validator"><ref bean="priceIncreaseValidator"/></property>
+		<property name="formView"><value>priceincrease</value></property>
+		<property name="successView"><value>hello.htm</value></property>
+		<property name="productManager">
+			<ref bean="prodMan"/>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"><value>org.hsqldb.jdbcDriver</value></property>
+		<property name="url">
+			<value>jdbc:hsqldb:c:/Tomcat6.0/springapp/db/tests</value>
+		</property>
+		<property name="username"><value>sa</value></property>
+		<property name="password"><value></value></property>
+	</bean>
+	
+    <bean id="prodMan" class="bus.ProductManager">
+    	<property name="productManagerDao">
+    		<ref bean="prodManDao"/>
+    	</property>
+<!--
+        <property name="products">
+            <list>
+                <ref bean="product1"/>
+                <ref bean="product2"/>
+                <ref bean="product3"/>
+            </list>
+        </property>
+-->
+    </bean>
+<!--
+	<!-- set of products that passes in the ProductManager-->
+    <bean id="product1" class="bus.Product">
+        <property name="description"><value>Lamp</value></property>
+        <property name="price"><value>5.75</value></property>
+    </bean>
+        
+    <bean id="product2" class="bus.Product">
+        <property name="description"><value>Table</value></property>
+        <property name="price"><value>75.25</value></property>
+    </bean>
+
+    <bean id="product3" class="bus.Product">
+        <property name="description"><value>Chair</value></property>
+        <property name="price"><value>22.79</value></property>
+    </bean>
+-->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>messages</value></property>
+    </bean>
+
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">	
+		<property name="mappings">
+			<props>
+				<prop key="/hello.htm">springappController</prop>
+				<prop key="/priceincrease.htm">priceIncreaseForm</prop>
+			</props>
+		</property>
+	</bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+        	<value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+
+
+</beans>
+
+	<!-- 
+	STEP 15
+		 Right now the controller specifies the full path of the view, which creates an unnecessary dependency 
+		 between the controller and the view. Ideally we would like to map to the view using a logical name, 
+		 allowing us to switch the view without having to change the controller. 
+		 
+		 You can set this mapping in a properties file if you like using a ResourceBundleViewResolver and 
+		 a SimpleUrlHandlerMapping class. If your mapping needs are simple it is easier to just set a prefix 
+		 and a suffix on the InternalResourceViewResolver.
+		 
+		 The latter approach is the one that I will implement now, so I modify the springapp-servlet.xml and i
+		 nclude this viewResolver entry. I have elected to use a JstlView which will enable us to use JSTL in 
+		 combination with message resource bundles and it will also support internationalization.
+		 
+	STEP 25:
+		 adding beans for a DataSource and a ProductManagerDaoJdbc implementation
+		 includes the full path of database location (c:/Tomcat6.0/springapp/db/tests)
+
+	-->
